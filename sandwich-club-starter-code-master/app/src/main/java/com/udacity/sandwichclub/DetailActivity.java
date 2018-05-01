@@ -27,6 +27,7 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
+
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -62,11 +63,17 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-
+/* Declare all
+*findViewById() is a resource intensive task and shouldn't be used here instead it should have been used inside
+*onCreate() where most of your app initialization tasks are done when the app is first launched
+* */
+//TODO findViewById() is a resource intensive task and shouldn't be used here instead it should have been used inside onCreate() where most of your app initialization tasks are done when the app is first launched
         TextView mTextViewAlsoKnownAs = findViewById(R.id.also_known_tv);
         TextView mTextViewPlaceOfOrigin = findViewById(R.id.origin_tv);
         TextView mTextViewDescription = findViewById(R.id.description_tv);
         TextView mTextViewIngredients = findViewById(R.id.ingredients_tv);
+
+//TODO create a check if the values returned are null - use optString()
 
         for(int x=0; x < sandwich.getAlsoKnownAs().size(); x++)
         {
