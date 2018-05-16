@@ -52,7 +52,7 @@ public class MovieResult {
 
         public String getPoster_path() {
             //return poster_path;
-            return "http://t2.gstatic.com/images?q=tbn:ANd9GcQW3LbpT94mtUG1PZIIzJNxmFX399wr_NcvoppJ82k7z99Hx6in";
+            return "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg";
         }
 
         public void setPoster_path(String poster_path) {
