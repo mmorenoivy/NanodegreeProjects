@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
         List<MovieResult> movies = new ArrayList<>();
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 26; i++) {
             movies.add(new MovieResult());
         }
         mRecyclerViewAdapter.setMovieList(movies);
