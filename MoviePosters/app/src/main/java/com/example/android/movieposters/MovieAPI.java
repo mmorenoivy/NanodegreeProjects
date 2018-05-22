@@ -10,4 +10,8 @@ import retrofit2.http.GET;
 public interface MovieAPI {
     @GET("movie/popular")
     Call<MovieList> getMoviePopular();
+    @GET("movie/top_rated")
+    Call<MovieList> getMovieTopRated();
+    @GET("movie/upcoming")
+    Call<MovieList> getMovieUpcoming();
 }

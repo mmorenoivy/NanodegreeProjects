@@ -1,12 +1,14 @@
 package com.example.android.movieposters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -25,9 +27,6 @@ import okhttp3.ResponseBody;
  * **/
 
 public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adapter.ViewHolder> {
-   /* String[] values;
-    Context context1;
-*/
     private List<MovieResult> mMovieList;
     private LayoutInflater mInflater;
     private Context mContext;
@@ -37,8 +36,6 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
 
     //This constructor is responsible for passing values to the list
     public RecyclerView_Adapter(Context context) { //, String[] values2
-   /*     values = values2;
-        context1 = context2;*/
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mMovieList = new ArrayList<>();
@@ -52,24 +49,34 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         MovieResult movie = mMovieList.get(position);
         // This is how to use Picasso to load images from the internet.
         Picasso.with(mContext)
                 .load(TMDB_IMAGE_PATH + movie.getPoster_path())
-                .placeholder(R.color.colorAccent)
+                .placeholder(R.color.colorPrimaryDark)
                 .into(holder.imageView);
+
+        //Click on a specific poster and it should call the intent
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext = view.getContext();
+                Toast.makeText(mContext, mMovieList.get(position) + "Movie is clicked", Toast.LENGTH_LONG).show();
+                Intent mIntent = new Intent(mContext, MovieDetails.class);
+                mContext.startActivity(mIntent);
+            }
+        });
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -102,7 +109,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
   /*          if(request.method().compareToIgnoreCase("post")==0){
                 requestLog ="\n" + requestLog + "\n" + bodyToString(request);
             }
-  */          Log.d("TAG","request" + "\n" + requestLog);
+            Log.d("TAG","request" + "\n" + requestLog);*/
 
             okhttp3.Response response = chain.proceed(request);
             long t2 = System.nanoTime();
@@ -120,40 +127,6 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
 
         }
     }
-
-
-    //This is responsible for holding the views
-    /*public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView textView;
-
-        public ViewHolder(View v) {
-            super(v);
-            textView = (TextView) v.findViewById(R.id.textViewName);
-        }
-    }*/
-    /*@Override
-    public RecyclerView_Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view1 = LayoutInflater.from(context).inflate(R.layout.recyclerview_layout,parent,false);
-        ViewHolder viewHolder1 = new ViewHolder(view1);
-        return viewHolder1;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView_Adapter.ViewHolder holder, int position) {
-
-        holder.textView.setText(values[position]);
-
-        holder.textView.setBackgroundColor(Color.CYAN);
-
-        holder.textView.setTextColor(Color.BLUE);
-    }
-
-    @Override
-    public int getItemCount() {
-        return values.length;
-    }
-    */
 
 
 }

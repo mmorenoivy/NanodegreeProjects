@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MoviePosters</string>
+    <string name="app_name">Popular Movies</string>
+    <string name="opt2">Popular</string>
+    <string name="opt1">Popular2</string>
 </resources>
