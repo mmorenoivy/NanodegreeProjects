@@ -50,6 +50,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
         MovieResult movie = mMovieList.get(position);
         // This is how to use Picasso to load images from the internet.
         Picasso.with(mContext)
@@ -62,9 +63,11 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
             @Override
             public void onClick(View view) {
                 mContext = view.getContext();
-                Toast.makeText(mContext, mMovieList.get(position) + "Movie is clicked", Toast.LENGTH_LONG).show();
-                Intent mIntent = new Intent(mContext, MovieDetails.class);
-                mContext.startActivity(mIntent);
+                MovieResult clickedMovie = mMovieList.get(position);
+                Intent intent = new Intent(mContext, MovieDetails.class);
+                intent.putExtra("movies", clickedMovie);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, clickedMovie + "Movie is clicked", Toast.LENGTH_LONG).show();
             }
         });
     }

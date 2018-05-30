@@ -1,5 +1,6 @@
 package com.example.android.movieposters;
 
+import android.graphics.Movie;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -35,6 +36,27 @@ public class MovieResult implements Parcelable {
      * release_date : 2018-04-25
      */
 
+    public String original_title;
+    private String poster_path;
+    private String overview;
+    public float movieRating;
+
+    public MovieResult()
+    {
+
+    }
+
+    public MovieResult(String movieTitle, String moviePoster, String overview, float movieRating)
+    {
+        this.original_title = movieTitle;
+        this.poster_path = moviePoster;
+        this.overview = overview;
+        this.movieRating = movieRating;
+    }
+
+
+
+/*
     private int vote_count;
     private double vote_average;
     private String poster_path;
@@ -118,21 +140,77 @@ public class MovieResult implements Parcelable {
        // this.popularity = in.readFloat();
 
     }
+*/
+
+    protected MovieResult(Parcel in) {
+        original_title = in.readString();
+        poster_path = in.readString();
+        overview = in.readString();
+        movieRating = in.readFloat();
+    }
 
     public static final Creator<MovieResult> CREATOR = new Creator<MovieResult>() {
-        public MovieResult createFromParcel(Parcel source) {
-            return new MovieResult(source);
+        @Override
+        public MovieResult createFromParcel(Parcel in) {
+            return new MovieResult(in);
         }
 
+        @Override
         public MovieResult[] newArray(int size) {
             return new MovieResult[size];
         }
     };
 
+    //write to parcelable
+
+    public String getPoster_path() {
+        return poster_path;
+        //return "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg";
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public String getOriginal_title() {
+        return original_title;
+    }
+
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
+
+    public float getMovieRating()
+    {
+        return movieRating;
+    }
+
+    public void setMovieRating(float movieRating)
+    {
+        this.movieRating = movieRating;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(original_title);
+        dest.writeString(poster_path);
+        dest.writeFloat(movieRating);
+    }
+
+
 
     /*//TODO 5 Create this class to reference the list in the MovieAPI interface
     public static class MovieList
