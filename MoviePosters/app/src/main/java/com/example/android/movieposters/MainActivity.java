@@ -7,16 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.android.movieposters.adapter.RecyclerView_Adapter;
+import com.example.android.movieposters.data.MovieAPI;
+import com.example.android.movieposters.data.MovieList;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -34,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * https://antonioleiva.com/recyclerview/
  * https://www.androidhive.info/2016/05/android-working-with-retrofit-http-library/
  * https://medium.com/@dds861/json-parsing-using-retrofit-and-recycleview-2300d9fdcf15
- *
+ * https://dzone.com/articles/checking-an-internet-connection-in-android-2
  * final code Stage 1 - 6/2/2018
  * coded with my 2 year old Mark
  * *
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView_Adapter mRecyclerViewAdapter;
+
+    private ProgressBar loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,9 +165,9 @@ public class MainActivity extends AppCompatActivity {
     public void checkConnection(){
         if(isOnline()){
             callMoviePopular();
-            Toast.makeText(MainActivity.this, "You are connected to Internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "You are connected to the Internet.", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(MainActivity.this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "You are not connected to the Internet. Check Connection Settings and Refresh", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.android.movieposters;
+package com.example.android.movieposters.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.android.movieposters.R;
+import com.example.android.movieposters.data.MovieResult;
 import com.example.android.movieposters.details.MovieDetails;
 import com.squareup.picasso.Picasso;
 
@@ -67,7 +69,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter<RecyclerView_Adap
                 Intent intent = new Intent(mContext, MovieDetails.class);
                 intent.putExtra("movies", clickedMovie);
                 mContext.startActivity(intent);
-                Toast.makeText(mContext, clickedMovie + "Movie is clicked", Toast.LENGTH_LONG).show();
+               // Toast.makeText(mContext, clickedMovie + "Movie is clicked", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -1,12 +1,7 @@
-package com.example.android.movieposters;
+package com.example.android.movieposters.data;
 
-import android.graphics.Movie;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 /**
  * This is the model class which represents the movie details
@@ -37,7 +32,7 @@ public class MovieResult implements Parcelable {
      */
 
     private int id;
-    private double vote_average;
+    private String vote_average;
     private String poster_path;
     private String original_title;
     private String overview;
@@ -48,13 +43,13 @@ public class MovieResult implements Parcelable {
 
     }
 
-    public MovieResult(String movieTitle, String moviePoster, String overview, float movieRating, String release_date)
+    public MovieResult(String movieTitle, String moviePoster, String overview, String voteAverage, String releaseDate)
     {
         this.original_title = movieTitle;
         this.poster_path = moviePoster;
         this.overview = overview;
-        this.vote_average = movieRating;
-        this.release_date = release_date;
+        this.vote_average = voteAverage;
+        this.release_date = releaseDate;
     }
 
     //this part captures the data from the API
@@ -62,8 +57,8 @@ public class MovieResult implements Parcelable {
         original_title = in.readString();
         poster_path = in.readString();
         overview = in.readString();
+        vote_average = in.readString();
         release_date = in.readString();
-        vote_average = in.readDouble();
     }
 
     public static final Creator<MovieResult> CREATOR = new Creator<MovieResult>() {
@@ -86,12 +81,12 @@ public class MovieResult implements Parcelable {
         this.id = id;
     }
 
-    public double getVote_average() {
+    public String getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(double vote_average) {
-        this.vote_average = vote_average;
+    public void setVote_average(String voteAverage) {
+        this.vote_average = voteAverage;
     }
 
     public String getPoster_path() {
@@ -137,7 +132,7 @@ public class MovieResult implements Parcelable {
         dest.writeString(original_title);
         dest.writeString(poster_path);
         dest.writeString(overview);
-        dest.writeDouble(vote_average);
+        dest.writeString(vote_average);
         dest.writeString(release_date);
     }
 }

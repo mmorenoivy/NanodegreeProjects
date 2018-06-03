@@ -1,4 +1,4 @@
-package com.example.android.movieposters;
+package com.example.android.movieposters.data;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
