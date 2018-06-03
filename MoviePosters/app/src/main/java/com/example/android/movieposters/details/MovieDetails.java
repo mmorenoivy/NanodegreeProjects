@@ -1,6 +1,7 @@
 package com.example.android.movieposters.details;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -24,10 +25,12 @@ public class MovieDetails extends AppCompatActivity {
     public String MOVIE = "movies";
 
     public static final String TMDB_IMAGE_PATH = "http://image.tmdb.org/t/p/w342";
+    public static final String TMDB_BACKDROP_PATH = "http://image.tmdb.org/t/p/original";
+
 
     private MovieResult mMovie;
     private RecyclerView_Adapter recyclerView_adapter;
-    ImageView imageView;
+    ImageView imageView1, imageView2;
     TextView mTitle;
     TextView mOverview;
     TextView mReleaseDate;
@@ -37,7 +40,7 @@ public class MovieDetails extends AppCompatActivity {
 
     private final AppCompatActivity activity = MovieDetails.this;
 
-    String thumbnail, movieName, movieDescription, userRating, releaseDate;
+    String hero, thumbnail, movieName, movieDescription, userRating, releaseDate;
     int movieId;
 
     @Override
@@ -46,7 +49,8 @@ public class MovieDetails extends AppCompatActivity {
         setContentView(R.layout.movie_detail);
 
         mTitle = (TextView) findViewById(R.id.title);
-        imageView = (ImageView) findViewById(R.id.poster);
+        imageView2 = (ImageView) findViewById(R.id.hero_poster);
+        imageView1 = (ImageView) findViewById(R.id.poster);
         mOverview = (TextView) findViewById(R.id.overview);
 
         //Convert the rating into a rating bar
@@ -62,7 +66,9 @@ public class MovieDetails extends AppCompatActivity {
 
             mMovie = getIntent().getParcelableExtra(MOVIE);
 
+            hero = mMovie.getBackdrop_path();
             thumbnail = mMovie.getPoster_path();
+
             movieName = mMovie.getOriginal_title();
             movieDescription = mMovie.getOverview();
             userRating = mMovie.getVote_average();
@@ -78,9 +84,14 @@ public class MovieDetails extends AppCompatActivity {
             ratingBar.setRating(twoDigit);*/
 
             Picasso.with(this)
+                    .load(TMDB_BACKDROP_PATH + mMovie.getBackdrop_path())
+                    .placeholder(R.color.colorPrimaryDark)
+                    .into(imageView2);
+
+            Picasso.with(this)
                     .load(TMDB_IMAGE_PATH + mMovie.getPoster_path())
                     .placeholder(R.color.colorPrimaryDark)
-                    .into(imageView);
+                    .into(imageView1);
 
 
             mTitle.setText(movieName);
@@ -89,8 +100,6 @@ public class MovieDetails extends AppCompatActivity {
             mUserRating.setText(userRating);
             mTextRelease.setText("Release Date: ");
             mReleaseDate.setText(releaseDate);
-
-
         }
         else
         {

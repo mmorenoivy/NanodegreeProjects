@@ -33,6 +33,7 @@ public class MovieResult implements Parcelable {
 
     private int id;
     private String vote_average;
+    private String backdrop_path;
     private String poster_path;
     private String original_title;
     private String overview;
@@ -43,9 +44,10 @@ public class MovieResult implements Parcelable {
 
     }
 
-    public MovieResult(String movieTitle, String moviePoster, String overview, String voteAverage, String releaseDate)
+    public MovieResult(String movieTitle, String movieHero, String moviePoster, String overview, String voteAverage, String releaseDate)
     {
         this.original_title = movieTitle;
+        this.backdrop_path = movieHero;
         this.poster_path = moviePoster;
         this.overview = overview;
         this.vote_average = voteAverage;
@@ -55,6 +57,7 @@ public class MovieResult implements Parcelable {
     //this part captures the data from the API
     protected MovieResult(Parcel in) {
         original_title = in.readString();
+        backdrop_path = in.readString();
         poster_path = in.readString();
         overview = in.readString();
         vote_average = in.readString();
@@ -97,6 +100,14 @@ public class MovieResult implements Parcelable {
         this.poster_path = poster_path;
     }
 
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
     public String getOriginal_title() {
         return original_title;
     }
@@ -131,6 +142,7 @@ public class MovieResult implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(original_title);
         dest.writeString(poster_path);
+        dest.writeString(backdrop_path);
         dest.writeString(overview);
         dest.writeString(vote_average);
         dest.writeString(release_date);
