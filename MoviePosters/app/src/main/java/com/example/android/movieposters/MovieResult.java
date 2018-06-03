@@ -36,40 +36,54 @@ public class MovieResult implements Parcelable {
      * release_date : 2018-04-25
      */
 
-    public String original_title;
-    private String poster_path;
-    private String overview;
-    public float movieRating;
-
-    public MovieResult()
-    {
-
-    }
-
-    public MovieResult(String movieTitle, String moviePoster, String overview, float movieRating)
-    {
-        this.original_title = movieTitle;
-        this.poster_path = moviePoster;
-        this.overview = overview;
-        this.movieRating = movieRating;
-    }
-
-
-
-/*
-    private int vote_count;
+    private int id;
     private double vote_average;
     private String poster_path;
     private String original_title;
     private String overview;
     private String release_date;
 
-    public int getVote_count() {
-        return vote_count;
+    public MovieResult()
+    {
+
     }
 
-    public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
+    public MovieResult(String movieTitle, String moviePoster, String overview, float movieRating, String release_date)
+    {
+        this.original_title = movieTitle;
+        this.poster_path = moviePoster;
+        this.overview = overview;
+        this.vote_average = movieRating;
+        this.release_date = release_date;
+    }
+
+    //this part captures the data from the API
+    protected MovieResult(Parcel in) {
+        original_title = in.readString();
+        poster_path = in.readString();
+        overview = in.readString();
+        release_date = in.readString();
+        vote_average = in.readDouble();
+    }
+
+    public static final Creator<MovieResult> CREATOR = new Creator<MovieResult>() {
+        @Override
+        public MovieResult createFromParcel(Parcel in) {
+            return new MovieResult(in);
+        }
+
+        @Override
+        public MovieResult[] newArray(int size) {
+            return new MovieResult[size];
+        }
+    };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getVote_average() {
@@ -82,7 +96,6 @@ public class MovieResult implements Parcelable {
 
     public String getPoster_path() {
         return poster_path;
-        //return "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg";
     }
 
     public void setPoster_path(String poster_path) {
@@ -113,113 +126,18 @@ public class MovieResult implements Parcelable {
         this.release_date = release_date;
     }
 
-  @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(this.original_title);
-        parcel.writeString(this.overview);
-        parcel.writeString(this.poster_path);
-        parcel.writeString(this.release_date);
-        parcel.writeInt(this.vote_count);
-        parcel.writeDouble(this.vote_average);
-  }
-
-    protected MovieResult(Parcel in) {
-        //this.original_language = in.readString();
-        this.original_title = in.readString();
-        this.overview = in.readString();
-        this.poster_path = in.readString();
-       // this.generids = in.readString();
-       // this.title = in.readString();
-        this.release_date = in.readString();
-       // this.backdrop_path = in.readString();
-
-       // this.favourite = in.readInt();
-       // this.id = in.readInt();
-        this.vote_count = in.readInt();
-        this.vote_average =in.readFloat();
-       // this.popularity = in.readFloat();
-
-    }
-*/
-
-    protected MovieResult(Parcel in) {
-        original_title = in.readString();
-        poster_path = in.readString();
-        overview = in.readString();
-        movieRating = in.readFloat();
-    }
-
-    public static final Creator<MovieResult> CREATOR = new Creator<MovieResult>() {
-        @Override
-        public MovieResult createFromParcel(Parcel in) {
-            return new MovieResult(in);
-        }
-
-        @Override
-        public MovieResult[] newArray(int size) {
-            return new MovieResult[size];
-        }
-    };
-
-    //write to parcelable
-
-    public String getPoster_path() {
-        return poster_path;
-        //return "http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg";
-    }
-
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
-    }
-
-    public String getOriginal_title() {
-        return original_title;
-    }
-
-    public void setOriginal_title(String original_title) {
-        this.original_title = original_title;
-    }
-
-    public float getMovieRating()
-    {
-        return movieRating;
-    }
-
-    public void setMovieRating(float movieRating)
-    {
-        this.movieRating = movieRating;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
+    //this block takes the data from the protected MovieResult function, and writes it here
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(original_title);
         dest.writeString(poster_path);
-        dest.writeFloat(movieRating);
+        dest.writeString(overview);
+        dest.writeDouble(vote_average);
+        dest.writeString(release_date);
     }
-
-
-
-    /*//TODO 5 Create this class to reference the list in the MovieAPI interface
-    public static class MovieList
-    {
-        private List<MovieResult> results;
-
-        public List<MovieResult> getResults() {
-            return results;
-        }
-    }
-*/
 }

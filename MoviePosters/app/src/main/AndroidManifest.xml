@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 <!--when dealing with intents, add this class-->
-        <activity android:name=".MovieDetails">
+        <activity android:name=".details.MovieDetails">
         </activity>
     </application>
 

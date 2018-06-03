@@ -12,6 +12,5 @@ public interface MovieAPI {
     Call<MovieList> getMoviePopular();
     @GET("movie/top_rated")
     Call<MovieList> getMovieTopRated();
-    @GET("movie/upcoming")
-    Call<MovieList> getMovieUpcoming();
+
 }
