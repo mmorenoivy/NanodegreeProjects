@@ -30,17 +30,16 @@ public class MovieDetails extends AppCompatActivity {
 
     private MovieResult mMovie;
     private RecyclerView_Adapter recyclerView_adapter;
-    ImageView imageView1, imageView2;
+    ImageView poster, hero;
     TextView mTitle;
     TextView mOverview;
     TextView mReleaseDate;
     TextView mUserRating;
     TextView mTextRating;
-    TextView mTextRelease;
 
     private final AppCompatActivity activity = MovieDetails.this;
 
-    String hero, thumbnail, movieName, movieDescription, userRating, releaseDate;
+    String hero_poster, thumbnail, movieName, movieDescription, userRating, releaseDate;
     int movieId;
 
     @Override
@@ -49,15 +48,14 @@ public class MovieDetails extends AppCompatActivity {
         setContentView(R.layout.movie_detail);
 
         mTitle = (TextView) findViewById(R.id.title);
-        imageView2 = (ImageView) findViewById(R.id.hero_poster);
-        imageView1 = (ImageView) findViewById(R.id.poster);
+        poster = (ImageView) findViewById(R.id.hero_poster);
+        hero = (ImageView) findViewById(R.id.poster);
         mOverview = (TextView) findViewById(R.id.overview);
 
         //Convert the rating into a rating bar
     //    ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         mTextRating = (TextView) findViewById(R.id.tv_rating);
         mUserRating = (TextView) findViewById(R.id.rating);
-        mTextRelease = (TextView) findViewById(R.id.tv_release);
         mReleaseDate = (TextView) findViewById(R.id.release_date);
 
 
@@ -66,7 +64,7 @@ public class MovieDetails extends AppCompatActivity {
 
             mMovie = getIntent().getParcelableExtra(MOVIE);
 
-            hero = mMovie.getBackdrop_path();
+            hero_poster = mMovie.getBackdrop_path();
             thumbnail = mMovie.getPoster_path();
 
             movieName = mMovie.getOriginal_title();
@@ -84,21 +82,19 @@ public class MovieDetails extends AppCompatActivity {
             ratingBar.setRating(twoDigit);*/
 
             Picasso.with(this)
-                    .load(TMDB_BACKDROP_PATH + mMovie.getBackdrop_path())
+                    .load(TMDB_BACKDROP_PATH + mMovie.getPoster_path())
                     .placeholder(R.color.colorPrimaryDark)
-                    .into(imageView2);
+                    .into(poster);
 
             Picasso.with(this)
-                    .load(TMDB_IMAGE_PATH + mMovie.getPoster_path())
+                    .load(TMDB_IMAGE_PATH + mMovie.getBackdrop_path())
                     .placeholder(R.color.colorPrimaryDark)
-                    .into(imageView1);
-
+                    .into(hero);
 
             mTitle.setText(movieName);
             mOverview.setText(movieDescription);
             mTextRating.setText("Rating: ");
             mUserRating.setText(userRating);
-            mTextRelease.setText("Release Date: ");
             mReleaseDate.setText(releaseDate);
         }
         else

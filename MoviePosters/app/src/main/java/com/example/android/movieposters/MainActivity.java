@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
     }
-
+op;
     public void callMoviePopular()
     {
         //here is how to implement retrofit to call the api
@@ -156,11 +156,7 @@ public class MainActivity extends AppCompatActivity {
     protected boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        } else {
-            return false;
-        }
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
     public void checkConnection(){
         if(isOnline()){
