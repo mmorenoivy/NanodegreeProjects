@@ -7,16 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.android.movieposters.adapter.Movie_Adapter;
-import com.example.android.movieposters.api.MovieAPI;
-import com.example.android.movieposters.object.MovieList;
+import com.example.android.movieposters.adapter.RecyclerView_Adapter;
+import com.example.android.movieposters.data.MovieAPI;
+import com.example.android.movieposters.data.MovieList;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,10 +44,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private final static String BASE_URL = "https://api.themoviedb.org/3/";
-
+    private final static String API_KEY = "";
 
     private RecyclerView mRecyclerView;
-    private Movie_Adapter mRecyclerViewAdapter;
+    private RecyclerView_Adapter mRecyclerViewAdapter;
 
     private ProgressBar loader;
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycledMovies);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        mRecyclerViewAdapter = new Movie_Adapter(this);
+        mRecyclerViewAdapter = new RecyclerView_Adapter(this);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
     }
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     {
         //here is how to implement retrofit to call the api
         final OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Movie_Adapter.LoggingInterceptor())
+                .addInterceptor(new RecyclerView_Adapter.LoggingInterceptor())
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15,TimeUnit.SECONDS)
                 .build();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieList> call, Throwable t) {
-                Log.d("Error", t.getLocalizedMessage());
+
             }
         });
     }
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     public void callTopRated()
     {
         final OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Movie_Adapter.LoggingInterceptor())
+                .addInterceptor(new RecyclerView_Adapter.LoggingInterceptor())
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15,TimeUnit.SECONDS)
                 .build();
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MovieList> call, Throwable t) {
-                Log.d("Error", t.getLocalizedMessage());
+
             }
         });
     }
