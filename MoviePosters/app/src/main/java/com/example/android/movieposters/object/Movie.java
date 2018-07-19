@@ -1,7 +1,11 @@
 package com.example.android.movieposters.object;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 /**
  * This is the model class which represents the movie details
@@ -12,7 +16,8 @@ import android.os.Parcelable;
  * user rating (called vote_average in the api)
  * release date
  **/
-public class Movie implements Parcelable {
+@Entity(tableName = "Favorite")
+public class Movie implements Parcelable{
 
     /**
      * vote_count : 3443
@@ -31,12 +36,22 @@ public class Movie implements Parcelable {
      * release_date : 2018-04-25
      */
 
+
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "movieId")
     private int id;
+    @ColumnInfo(name = "vote_average")
     private String vote_average;
+    @ColumnInfo(name = "backdrop_path")
     private String backdrop_path;
+    @ColumnInfo(name = "poster_path")
     private String poster_path;
+    @ColumnInfo(name = "original_title")
     private String original_title;
+    @ColumnInfo(name = "overview")
     private String overview;
+    @ColumnInfo(name = "release_date")
     private String release_date;
 
     public Movie()
@@ -44,27 +59,31 @@ public class Movie implements Parcelable {
 
     }
 
-    public Movie(int id, String movieTitle, String movieHero, String moviePoster, String overview, String voteAverage, String releaseDate)
+    public Movie(@NonNull int id,
+                 String movieTitle,
+                 String movieHero, String moviePoster, String overview, String voteAverage, String releaseDate)
     {
 
+        this.id = id;
         this.original_title = movieTitle;
         this.backdrop_path = movieHero;
         this.poster_path = moviePoster;
         this.overview = overview;
         this.vote_average = voteAverage;
         this.release_date = releaseDate;
-        this.id = id;
+
     }
 
     //this part captures the data from the API
     protected Movie(Parcel in) {
+        id=in.readInt();
         original_title = in.readString();
         backdrop_path = in.readString();
         poster_path = in.readString();
         overview = in.readString();
         vote_average = in.readString();
         release_date = in.readString();
-        id=in.readInt();
+
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -79,36 +98,13 @@ public class Movie implements Parcelable {
         }
     };
 
+    @NonNull
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull int id) {
         this.id = id;
-    }
-
-    public String getVote_average() {
-        return vote_average;
-    }
-
-    public void setVote_average(String voteAverage) {
-        this.vote_average = voteAverage;
-    }
-
-    public String getPoster_path() {
-        return poster_path;
-    }
-
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
-    }
-
-    public String getBackdrop_path() {
-        return backdrop_path;
-    }
-
-    public void setBackdrop_path_path(String backdrop_path) {
-        this.backdrop_path = backdrop_path;
     }
 
     public String getOriginal_title() {
@@ -119,12 +115,36 @@ public class Movie implements Parcelable {
         this.original_title = original_title;
     }
 
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
     public String getOverview() {
         return overview;
     }
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public String getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(String voteAverage) {
+        this.vote_average = voteAverage;
     }
 
     public String getRelease_date() {
@@ -144,12 +164,12 @@ public class Movie implements Parcelable {
     //this block takes the data from the protected Movie function, and writes it here
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(original_title);
-        dest.writeString(poster_path);
         dest.writeString(backdrop_path);
+        dest.writeString(poster_path);
         dest.writeString(overview);
         dest.writeString(vote_average);
         dest.writeString(release_date);
-        dest.writeInt(id);
     }
 }

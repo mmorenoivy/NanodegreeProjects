@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.example.android.movieposters.BuildConfig;
 import com.example.android.movieposters.R;
 import com.example.android.movieposters.object.Movie;
-import com.example.android.movieposters.ui.MovieDetails;
+import com.example.android.movieposters.ui.MovieDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -30,6 +30,7 @@ import okhttp3.ResponseBody;
 
 public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder> {
     private List<Movie> mMovieList;
+
     private LayoutInflater mInflater;
     private Context mContext;
 
@@ -42,6 +43,7 @@ public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder
         this.mMovieList = new ArrayList<>();
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.movie_image, parent, false);
@@ -52,8 +54,10 @@ public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         Movie movie = mMovieList.get(position);
+
         // This is how to use Picasso to load images from the internet.
         Picasso.with(mContext)
+
                 .load(TMDB_IMAGE_PATH + movie.getPoster_path())
                 .placeholder(R.color.colorPrimaryDark)
                 .into(holder.imageView);
@@ -64,9 +68,10 @@ public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder
             public void onClick(View view) {
                 mContext = view.getContext();
                 Movie clickedMovie = mMovieList.get(position);
-                Intent intent = new Intent(mContext, MovieDetails.class);
+                Intent intent = new Intent(mContext, MovieDetailsActivity.class);
                 intent.putExtra("movies", clickedMovie);
                 mContext.startActivity(intent);
+
                // Toast.makeText(mContext, clickedMovie + "Movie is clicked", Toast.LENGTH_LONG).show();
             }
         });
@@ -77,7 +82,7 @@ public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 
@@ -94,6 +99,7 @@ public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder
         notifyDataSetChanged();
     }
 
+
     public static class LoggingInterceptor implements Interceptor {
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -109,7 +115,7 @@ public class Movie_Adapter extends RecyclerView.Adapter<Movie_Adapter.ViewHolder
             String requestLog = String.format("Sending request %s on %s%n%s",
                     request.url(), chain.connection(), request.headers());
 
-  /*          if(request.method().compareToIgnoreCase("post")==0){
+ /*          if(request.method().compareToIgnoreCase("post")==0){
                 requestLog ="\n" + requestLog + "\n" + bodyToString(request);
             }
             Log.d("TAG","request" + "\n" + requestLog);*/
